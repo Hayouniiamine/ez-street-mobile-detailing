@@ -1,0 +1,176 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    @apply bg-white font-sans text-ink antialiased;
+    margin: 0;
+  }
+
+  /* Sticky-nav offset for in-page anchors */
+  section[id],
+  div[id] {
+    scroll-margin-top: 84px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display font-normal;
+    letter-spacing: 0.01em;
+  }
+
+  ::selection {
+    background: #d10000;
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid #d10000;
+    outline-offset: 3px;
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    font-family: inherit;
+  }
+
+  /* Kill the ugly native date-picker icon tint in Chrome */
+  input[type='date']::-webkit-calendar-picker-indicator {
+    opacity: 0.55;
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  .shell {
+    width: 100%;
+    max-width: 1240px;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 1024px) {
+    .shell {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  /* Section eyebrow label: red, small, tracked out, with a rule */
+  .eyebrow {
+    @apply inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-brand;
+  }
+
+  .eyebrow::before {
+    content: '';
+    @apply block h-px w-8 bg-brand;
+  }
+
+  .eyebrow-plain {
+    @apply text-[11px] font-semibold uppercase tracking-[0.28em] text-brand;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-7 py-[14px] text-[13px] font-semibold uppercase tracking-[0.16em] transition-all duration-200;
+  }
+
+  .btn-red {
+    @apply btn bg-brand text-white shadow-[0_6px_18px_rgba(209,0,0,0.28)] hover:bg-brand-dark hover:shadow-[0_10px_26px_rgba(163,0,0,0.34)] active:translate-y-px;
+  }
+
+  .btn-outline {
+    @apply btn border-2 border-ink bg-transparent text-ink hover:bg-ink hover:text-white active:translate-y-px;
+  }
+
+  .btn-outline-light {
+    @apply btn border-2 border-white/70 bg-transparent text-white hover:border-white hover:bg-white hover:text-ink;
+  }
+
+  .card {
+    @apply border border-rule bg-white shadow-card transition-all duration-300;
+  }
+
+  .card-hover {
+    @apply hover:border-brand hover:shadow-lift;
+  }
+
+  .field-label {
+    @apply mb-2 block text-[11px] font-semibold uppercase tracking-[0.18em] text-muted;
+  }
+
+  .field {
+    @apply w-full border border-rule bg-white px-4 py-3 text-[15px] text-ink transition-colors duration-200 placeholder:text-muted/60 focus:border-brand focus:outline-none;
+  }
+
+  .field-dark {
+    @apply w-full border border-ink-line bg-ink-soft px-4 py-3 text-[15px] text-white transition-colors duration-200 placeholder:text-white/35 focus:border-brand focus:outline-none;
+  }
+
+  /* Diagonal red hairline texture for dark blocks — pattern, not a color wash */
+  .stripe-dark {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      rgba(209, 0, 0, 0.16) 0px,
+      rgba(209, 0, 0, 0.16) 1px,
+      transparent 1px,
+      transparent 11px
+    );
+  }
+
+  .outline-text {
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.12);
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* ---- Scroll reveal ---- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
