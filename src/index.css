@@ -10,6 +10,7 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    overflow-x: hidden;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -21,6 +22,8 @@
   body {
     @apply bg-white font-sans text-ink antialiased;
     margin: 0;
+    overflow-x: hidden;
+    width: 100%;
   }
 
   /* Sticky-nav offset for in-page anchors */
@@ -46,14 +49,24 @@
     outline-offset: 3px;
   }
 
+  /* Inputs have 16px min size on mobile to prevent iOS Safari auto-zoom */
   input,
   select,
   textarea,
   button {
     font-family: inherit;
+    font-size: 16px;
   }
 
-  /* Kill the ugly native date-picker icon tint in Chrome */
+  @media (min-width: 640px) {
+    input,
+    select,
+    textarea {
+      font-size: 15px;
+    }
+  }
+
+  /* Kill native date-picker icon tint in Chrome */
   input[type='date']::-webkit-calendar-picker-indicator {
     opacity: 0.55;
     cursor: pointer;
@@ -65,7 +78,13 @@
     width: 100%;
     max-width: 1240px;
     margin-inline: auto;
-    padding-inline: 1.25rem;
+    padding-inline: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .shell {
+      padding-inline: 1.5rem;
+    }
   }
 
   @media (min-width: 1024px) {
@@ -76,20 +95,20 @@
 
   /* Section eyebrow label: red, small, tracked out, with a rule */
   .eyebrow {
-    @apply inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-brand;
+    @apply inline-flex items-center gap-2 sm:gap-3 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.24em] sm:tracking-[0.28em] text-brand;
   }
 
   .eyebrow::before {
     content: '';
-    @apply block h-px w-8 bg-brand;
+    @apply block h-px w-6 sm:w-8 bg-brand shrink-0;
   }
 
   .eyebrow-plain {
-    @apply text-[11px] font-semibold uppercase tracking-[0.28em] text-brand;
+    @apply text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.24em] sm:tracking-[0.28em] text-brand;
   }
 
   .btn {
-    @apply inline-flex items-center justify-center gap-2 px-7 py-[14px] text-[13px] font-semibold uppercase tracking-[0.16em] transition-all duration-200;
+    @apply inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3 sm:py-[14px] text-[12px] sm:text-[13px] font-semibold uppercase tracking-[0.16em] transition-all duration-200 min-h-[44px];
   }
 
   .btn-red {
@@ -101,7 +120,7 @@
   }
 
   .btn-outline-light {
-    @apply btn border-2 border-white/70 bg-transparent text-white hover:border-white hover:bg-white hover:text-ink;
+    @apply btn border-2 border-white/70 bg-transparent text-white hover:border-white hover:bg-white hover:text-ink active:translate-y-px;
   }
 
   .card {
@@ -117,14 +136,14 @@
   }
 
   .field {
-    @apply w-full border border-rule bg-white px-4 py-3 text-[15px] text-ink transition-colors duration-200 placeholder:text-muted/60 focus:border-brand focus:outline-none;
+    @apply w-full border border-rule bg-white px-3.5 sm:px-4 py-3 text-[16px] sm:text-[15px] text-ink transition-colors duration-200 placeholder:text-muted/60 focus:border-brand focus:outline-none min-h-[44px];
   }
 
   .field-dark {
-    @apply w-full border border-ink-line bg-ink-soft px-4 py-3 text-[15px] text-white transition-colors duration-200 placeholder:text-white/35 focus:border-brand focus:outline-none;
+    @apply w-full border border-ink-line bg-ink-soft px-3.5 sm:px-4 py-3 text-[16px] sm:text-[15px] text-white transition-colors duration-200 placeholder:text-white/35 focus:border-brand focus:outline-none min-h-[44px];
   }
 
-  /* Diagonal red hairline texture for dark blocks — pattern, not a color wash */
+  /* Diagonal red hairline texture for dark blocks */
   .stripe-dark {
     background-image: repeating-linear-gradient(
       -45deg,
@@ -155,10 +174,10 @@
 /* ---- Scroll reveal ---- */
 [data-reveal] {
   opacity: 0;
-  transform: translateY(26px);
+  transform: translateY(20px);
   transition:
-    opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: opacity, transform;
 }
 

@@ -25,7 +25,7 @@ export default function Hero() {
         />
         <div className="absolute inset-y-0 left-0 w-[7px] bg-brand" aria-hidden="true" />
 
-        {/* rating card straddling the seam between text and photo */}
+        {/* desktop rating card */}
         <div className="absolute bottom-14 left-0 hidden -translate-x-1/2 xl:block z-20">
           <a
             href="https://share.google/6YyJ3b9NE85bckQm7"
@@ -46,31 +46,31 @@ export default function Hero() {
       </div>
 
       <div className="shell relative">
-        <div className="pb-14 pt-12 lg:w-[55%] lg:pb-32 lg:pr-16 lg:pt-28 xl:w-[53%]">
+        <div className="pb-12 pt-8 sm:pb-14 sm:pt-12 lg:w-[55%] lg:pb-32 lg:pr-16 lg:pt-28 xl:w-[53%]">
           <Reveal>
             <p className="eyebrow">{business.heroLabel}</p>
           </Reveal>
 
           <Reveal delay={70}>
-            <h1 className="mt-6 text-[clamp(3.35rem,9vw,6.6rem)] uppercase leading-[0.85] text-ink">
+            <h1 className="mt-4 sm:mt-6 text-[clamp(2.8rem,8vw,6.4rem)] uppercase leading-[0.88] text-ink">
               <Accented text={business.heroHeadline} accent={business.heroAccent} />
             </h1>
           </Reveal>
 
           <Reveal delay={140}>
-            <p className="mt-7 max-w-[48ch] text-[17px] leading-relaxed text-muted">
+            <p className="mt-5 sm:mt-7 max-w-[48ch] text-[15px] sm:text-[17px] leading-relaxed text-muted">
               {business.heroSub}
             </p>
           </Reveal>
 
           <Reveal delay={210}>
-            <div className="mt-9 flex flex-wrap items-center gap-3">
+            <div className="mt-7 sm:mt-9 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3">
               {book.external ? (
                 <a
                   href={book.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-red"
+                  className="btn-red w-full sm:w-auto"
                 >
                   Book Now <ArrowRight width={17} height={17} />
                 </a>
@@ -78,39 +78,55 @@ export default function Hero() {
                 <button
                   type="button"
                   onClick={() => openBooking()}
-                  className="btn-red"
+                  className="btn-red w-full sm:w-auto"
                 >
                   Book Now <ArrowRight width={17} height={17} />
                 </button>
               )}
-              <a href={telHref(business)} className="btn-outline">
+              <a href={telHref(business)} className="btn-outline w-full sm:w-auto">
                 <Phone width={16} height={16} /> Call Now
               </a>
-              <a href={smsHref(business)} className="btn-outline">
+              <a href={smsHref(business)} className="btn-outline w-full sm:w-auto">
                 <Message width={16} height={16} /> Message Now
               </a>
             </div>
           </Reveal>
 
-          {/* mobile / tablet photo */}
-          <Reveal delay={120} className="relative mt-12 lg:hidden">
-            <div className="absolute -left-2 top-4 bottom-4 w-[6px] bg-brand" aria-hidden="true" />
+          {/* mobile / tablet photo & rating */}
+          <Reveal delay={120} className="relative mt-8 sm:mt-12 lg:hidden">
+            <div className="absolute -left-2 top-3 bottom-3 w-[5px] bg-brand" aria-hidden="true" />
             <Img
               src={business.heroImage}
               alt="Freshly detailed black sports car with a mirror finish"
               label="Hero photo"
-              className="h-[300px] w-full object-cover sm:h-[420px]"
+              className="h-[260px] sm:h-[380px] w-full object-cover rounded-sm shadow-md"
             />
+            
+            {/* Mobile Google Rating Strip */}
+            <a
+              href="https://share.google/6YyJ3b9NE85bckQm7"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 flex items-center justify-between rounded border border-rule bg-mist px-4 py-2.5 transition-colors hover:border-brand"
+            >
+              <div className="flex items-center gap-2">
+                <Stars rating={5} size={14} />
+                <span className="font-display text-lg leading-none text-ink">5.0 on Google</span>
+              </div>
+              <span className="text-[11px] font-bold text-brand uppercase tracking-wider">
+                57 Reviews ↗
+              </span>
+            </a>
           </Reveal>
 
           <Reveal delay={260}>
-            <ul className="mt-12 flex flex-wrap items-center gap-x-7 gap-y-3 border-t border-rule pt-6 lg:mt-16">
+            <ul className="mt-8 sm:mt-12 flex flex-wrap items-center gap-x-6 gap-y-2.5 border-t border-rule pt-5 sm:pt-6 lg:mt-16">
               {TRUST.map((t) => (
                 <li
                   key={t}
-                  className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.13em] text-ink"
+                  className="flex items-center gap-2 text-[11px] sm:text-[12px] font-semibold uppercase tracking-[0.12em] text-ink"
                 >
-                  <span className="block h-[7px] w-[7px] rotate-45 bg-brand" aria-hidden="true" />
+                  <span className="block h-[6px] w-[6px] rotate-45 bg-brand" aria-hidden="true" />
                   {t}
                 </li>
               ))}
